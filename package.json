@@ -2,15 +2,15 @@
   "name": "myproject",
   "version": "1.0.0",
   "description": "This project was bootstrapped with Fastify-CLI.",
-  "main": "app.js",
+  "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "node --test test/**/*.test.js",
     "build": "tsc -p tsconfig.json",
-    "start": "node ./dist/src/index.js",
-    "dev": "fastify start -w -l info -P app.js"
+    "start": "prisma migrate deploy && node ./dist/src/index.js",
+    "dev": "prisma migrate dev && nodemon src/index.ts"
   },
   "keywords": [],
   "author": "",
