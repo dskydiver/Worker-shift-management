@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ShiftTime {
+  First @map("0_8")
+  Second @map("8_16")
+  Third @map("16_24")
+
+  @@map("shift_time")
+}
+
+model Worker {
+  id            String       @id @default(dbgenerated("ulid_generate()"))
+  name          String
+  email         String       @unique
+
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @default(now()) @map("updated_at")
+  deletedAt     DateTime?    @map("deleted_at")
+
+  workerShifts  WorkerShift[]
+
+  @@map("worker")
+}
+
+model WorkerShift {
+  id            String       @id @default(dbgenerated("ulid_generate()"))
+  workerId      String       @map("worker_id")
+  worker        Worker       @relation(fields: [workerId], references: [id])
+
+  shiftDate     DateTime     @db.Date @map("shift_date")
+  shiftTime     ShiftTime    @map("shift_time")
+
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @default(now()) @map("updated_at")
+  deletedAt     DateTime?    @map("deleted_at")
+
+  @@unique([workerId, shiftDate])
+  @@unique([shiftDate, shiftTime])
+
+  @@map("worker_shift")
+}
