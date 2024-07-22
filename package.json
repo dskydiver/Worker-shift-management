@@ -9,8 +9,8 @@
   "scripts": {
     "test": "node --test test/**/*.test.js",
     "build": "tsc -p tsconfig.json",
-    "start": "prisma migrate deploy && node ./dist/src/index.js",
-    "dev": "prisma migrate dev && nodemon src/index.ts"
+    "start": "node ./dist/src/index.js",
+    "dev": "nodemon src/index.ts"
   },
   "keywords": [],
   "author": "",

@@ -42,3 +42,15 @@ export const getWorker = async (
     return reply.code(400).send({ error })
   }
 }
+
+export const getWelcomeWord = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+) => {
+  try {
+    return reply.send({ success: true, data: 'Hello, World on vercel app' })
+  } catch (error) {
+    logger.debug(error)
+    return reply.code(400).send({ error })
+  }
+}
