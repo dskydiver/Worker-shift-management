@@ -1,5 +1,10 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify'
-import { createWorker, getAllWorker, getWorker } from '../controllers/worker'
+import {
+  createWorker,
+  getAllWorker,
+  getWelcomeWord,
+  getWorker,
+} from '../controllers/worker'
 import {
   CREATE_WORKER_SCHEMA,
   CreateWorkerRequestBody,
@@ -46,6 +51,16 @@ const worker: FastifyPluginAsync = async (fastify, options) => {
     schema: {
       tags: ['workers'], // information of the routes and it'll be used to classify the api routes by this tags
       body: CREATE_WORKER_SCHEMA,
+    },
+  })
+  fastify.route({
+    method: 'GET',
+    url: '/welcome',
+    handler: async (request, reply) => {
+      await getWelcomeWord(request, reply)
+    },
+    schema: {
+      tags: ['shift'],
     },
   })
 }
