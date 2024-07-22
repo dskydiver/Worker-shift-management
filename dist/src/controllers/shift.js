@@ -22,6 +22,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -29,62 +38,63 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDateShift = exports.createShift = exports.getWorkerShift = exports.getShift = exports.getAllShift = void 0;
 const logger_1 = __importDefault(require("../../logger"));
 const shiftDal = __importStar(require("../dal/shift"));
-const getAllShift = async (request, reply) => {
+const getAllShift = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const shifts = await shiftDal.getAllShift();
+        const shifts = yield shiftDal.getAllShift();
         return reply.send({ success: true, data: shifts });
     }
     catch (error) {
         logger_1.default.debug({ error });
         return reply.code(400).send({ error });
     }
-};
+});
 exports.getAllShift = getAllShift;
-const getShift = async (request, reply) => {
+const getShift = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = request.params;
-        const shift = await shiftDal.getShift(id);
+        const shift = yield shiftDal.getShift(id);
         return reply.send({ success: true, data: shift });
     }
     catch (error) {
         logger_1.default.debug({ error });
         return reply.code(400).send({ error });
     }
-};
+});
 exports.getShift = getShift;
-const getWorkerShift = async (request, reply) => {
+const getWorkerShift = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = request.params;
-        const shifts = await shiftDal.getWorkerShift(id);
+        const shifts = yield shiftDal.getWorkerShift(id);
         return reply.send({ success: true, data: shifts });
     }
     catch (error) {
         logger_1.default.debug({ error });
         return reply.code(400).send({ error });
     }
-};
+});
 exports.getWorkerShift = getWorkerShift;
-const createShift = async (request, reply) => {
+const createShift = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     const { workerId, shiftDate, shiftTime } = request.body;
     try {
-        const shift = await shiftDal.createShift(workerId, new Date(shiftDate), shiftTime);
+        const shift = yield shiftDal.createShift(workerId, new Date(shiftDate), shiftTime);
         return reply.send({ success: true, data: shift });
     }
     catch (error) {
         logger_1.default.debug({ error });
         return reply.code(400).send({ error: 'Error creating shift' });
     }
-};
+});
 exports.createShift = createShift;
-const getDateShift = async (request, reply) => {
+const getDateShift = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { shiftDate } = request.body;
-        const shifts = await shiftDal.getDateShift(new Date(shiftDate));
+        const shifts = yield shiftDal.getDateShift(new Date(shiftDate));
         return reply.send({ success: true, data: shifts });
     }
     catch (error) {
         logger_1.default.debug({ error });
         return reply.code(400).send({ error });
     }
-};
+});
 exports.getDateShift = getDateShift;
+//# sourceMappingURL=shift.js.map

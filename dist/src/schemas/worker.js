@@ -9,3 +9,4 @@ exports.CREATE_WORKER_SCHEMA = zod_1.z.object({
 exports.GET_WORKER_PARAM_SCHEMA = zod_1.z.object({
     id: zod_1.z.string().min(1),
 });
+//# sourceMappingURL=worker.js.map

@@ -17,3 +17,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
 __exportStar(require("@prisma/client"), exports);
 exports.default = new client_1.PrismaClient();
+//# sourceMappingURL=index.js.map
