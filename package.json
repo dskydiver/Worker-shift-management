@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test": "node --test test/**/*.test.js",
-    "build": "tsc -p tsconfig.json",
+    "build": "rimraf dist && tsc",
+    "add-build": "git add dist",
+    "ts.check": "tsc --project tsconfig.json",
     "start": "node ./dist/src/index.js",
     "dev": "nodemon src/index.ts"
   },
@@ -26,8 +28,15 @@
     "fastify-plugin": "^4.0.0",
     "fastify-type-provider-zod2": "^1.0.46",
     "http": "^0.0.1-security",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^6.0.1",
     "tap": "^18.7.3"
   },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "devDependencies": {
     "@types/node": "^20.12.11",
     "prisma": "^5.13.0",
